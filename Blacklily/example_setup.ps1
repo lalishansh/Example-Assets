@@ -8,6 +8,7 @@ Push-Location $RootPath
 function DnExampleZipIfFilesUnAvailable {
     Param($DestPath, $URL)
     if (Test-Path -Path "$DestPath" -PathType Container) {} else {
+        New-Item -Path "$DestPath" -ItemType Directory
         Invoke-WebRequest -Uri $URL -OutFile "$DestPath.zip"
         Expand-Archive -Path "$DestPath.zip" -DestinationPath "$DestPath"
         Remove-Item "$DestPath.zip"
